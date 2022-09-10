@@ -1,6 +1,6 @@
 {
   "name": "mern-server",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "description": "The MERN stack (MongoDB, Express.js, React, and Node.js) to build a social media application called Deep Thoughts.",
   "main": "server.js",
   "scripts": {
@@ -8,8 +8,8 @@
     "watch": "nodemon",
     "seed": "node seeders/seeds.js"
   },
-  "keywords": [],
-  "author": "Nikita Nik Sharpio",
+  "keywords": [ ],
+  "author": "Nikita 'Nik' Sharpio aka niksharpkings",
   "license": "ISC",
   "dependencies": {
     "apollo-server-express": "^3.10.2",
@@ -18,7 +18,7 @@
     "faker": "^4.1.0",
     "graphql": "^16.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.9"
+    "mongoose": "^6.1.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"

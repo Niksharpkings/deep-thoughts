@@ -1,6 +1,6 @@
 {
   "name": "deep-thoughts",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "description": "- UCLAx-U2 project # 21\r - The MERN stack (MongoDB, Express.js, React, and Node.js) to build a social media application called Deep Thoughts.",
   "main": "server/server.js",
   "scripts": {
@@ -13,8 +13,8 @@
     "type": "git",
     "url": "git+https://github.com/Niksharpkings/deep-thoughts.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [ ],
+  "author": "Nikita 'Nik' Sharpio aka niksharpkings",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Niksharpkings/deep-thoughts/issues"
