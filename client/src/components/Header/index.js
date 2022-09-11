@@ -1,5 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Auth from '../../utils/auth';
+
+const logout = event => {
+  event.preventDefault();
+  Auth.logout();
+};
 
 const Header = () => {
   return (
@@ -10,12 +16,25 @@ const Header = () => {
         </Link>
 
         <nav className="text-center">
+          {Auth.loggedIn() ? (
+            <>
+              <Link to="/profile">Me</Link>
+              {/* override the anchor tag with a onclick event that is link to a preventDefault property and will init the Auth to logout */}
+              <a href="/" onClick={logout}>
+                Logout
+              </a>
+            </>
+          ) : (
+            <>
           <Link to="/login">Login</Link>
-          <Link to="/signup">Signup</Link>
+                <Link to="/signup">Signup</Link>
+              </>
+            )}
         </nav>
       </div>
     </header>
   );
 };
+
 
 export default Header;

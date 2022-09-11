@@ -7,6 +7,8 @@ import {
   createHttpLink,
 } from "@apollo/client";
 
+import { setContext } from '@apollo/client/link/context';
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -21,8 +23,24 @@ const httpLink = createHttpLink({
   uri: "/graphql",
 });
 
+//create an apollo middleware authentication link to inject the token into the request by use the setContext() function to retrieve the token from localStorage and set the HTTP request headers of every request to include the token, whether the request needs it or not
+const authLink = setContext((_, { headers }) => {
+  // retrieve the token from localStorage
+  const token = localStorage.getItem('id_token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    }
+  }
+});
+
+// create a new ApolloClient instance and pass in the link option to the constructor, which will be set to the authLink we just created
 const client = new ApolloClient({
-  link: httpLink,
+  //combine the authLink and httpLink objects so that every request retrieves the token and sets the request headers before making the request to the API
+  link: authLink.concat(httpLink),
+  // / set the cache to a new instance of InMemoryCache
   cache: new InMemoryCache(),
 });
 

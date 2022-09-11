@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
+
+//import our class AuthService
+import Auth from '../utils/auth';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
@@ -7,10 +12,12 @@ const Signup = () => {
     password: "",
   });
 
-  // update state based on form input changes
+  const [addUser, { error }] = useMutation(ADD_USER);
+
+  // Update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+// setFormState is a function that takes in an object and merges it with the current state of formState
     setFormState({
       ...formState,
       [name]: value,
@@ -19,7 +26,20 @@ const Signup = () => {
 
   // submit form
   const handleFormSubmit = async (event) => {
+    //event.preventDefault() prevents the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
+    // use try/catch instead of promises to handle errors
+  try {
+    // execute addUser mutation and pass in variable data from form
+    const { data } = await addUser({
+      variables: { ...formState }
+    });
+    // redirect reloaded to the homepage with a saved token in localStorage that will be used to continue the login process by gathering the "(method) AuthService.login(idToken: any): void" retrieve the mutation token response data and added the login user by its token.
+    Auth.login(data.addUser.token);
+    console.log(data);
+  } catch (e) {
+    console.error(e);
+  }
   };
 
   return (
@@ -60,6 +80,7 @@ const Signup = () => {
                 Submit
               </button>
             </form>
+            {error && <div>Sign up failed</div>}
           </div>
         </div>
       </div>
